@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven 3.9.5'
-        jdk 'JDK 17'
+        jdk 'JDK 21'
     }
 
     environment {
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo '🔍 Checking out code...'
                 git branch: 'main',
-                    url: 'https://github.com/geekhall/demo.git',
+                    url: 'https://github.com/usfgtkai/TKjenkins.git',
                     credentialsId: 'Github-token'
 
                 script {
@@ -93,7 +93,7 @@ pipeline {
                 echo '🚀 Deploying application...'
 
                 script {
-                    def remoteHost = 'username@XXX.XXX.XXX.XXX'
+                    def remoteHost = 'kai@192.168.80.102'
                     def deployPath = '/opt/deployments'
                     def jarFile = "${APP_NAME}-${APP_VERSION}.jar"
 
@@ -133,7 +133,6 @@ sleep 5
 # 验证进程是否在运行
 if ps -p \${APP_PID} > /dev/null 2>&1; then
     echo "✅ Application process is running (PID: \${APP_PID})"
-
     # 检查日志中是否有错误
     if grep -i "error\\|exception\\|failed" app.log | tail -5; then
         echo "⚠️ Found errors in logs, but application is running"
